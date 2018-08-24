@@ -1,12 +1,16 @@
+这是一篇《重构 》的总结 ，我在学习的同时并使用它作为参考。这不是一本书的替代品，所以你要想真的想学习里面的内容，买一本书使用这个文章作为参考和指南。
 This is my summary of the "Refactoring: Improving the Design of Existing Code" by Martin Fowler. I use it while learning and as quick reference. It is not intended to be an standalone substitution of the book so if you really want to learn the concepts here presented, buy and read the book and use this repository as a reference and guide.
 
+如果你是这本书的发布者，认为这片文章不应该被发布，你可以向我发送一份email，hugomatilla [at] gmail [dot] com 我将会将其设置为私有的
 If you are the publisher and think this repository should not be public, just write me an email at hugomatilla [at] gmail [dot] com and I will make it private.
 
+另外： 建议 评论 还 PR 都是十分欢迎的
 Contributions: Issues, comments and pull requests are super welcome :smiley:
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-# 1. TABLE OF CONTENT
+# 1. TABLE OF CONTENT 
+# 1. 内容目录
 - [1. TABLE OF CONTENT](#1-table-of-content)
 - [3. BAD SMELLS IN CODE](#3-bad-smells-in-code)
 	- [1. Duplicated code](#1-duplicated-code)
@@ -113,13 +117,16 @@ Contributions: Issues, comments and pull requests are super welcome :smiley:
 
 <!-- /TOC -->
 
-# 3. BAD SMELLS IN CODE
-### 1. Duplicated code
+# 3. BAD SMELLS IN CODE（代码的坏味道）
+### 1. Duplicated code （重复的代码）
 Same code structure in more than one place.
-### 2. Long Method
+多个地方使用相同的代码
+### 2. Long Method（很长的方法）
 The longer a procedure is the more difficult is to understand.
-### 3. Large Classes
+一个很长的程序是很难被理解的
+### 3. Large Classes（超级大的类）
 When a class is trying to do too much, duplicated code cannot be far behind.
+当一个类变的越来越大的时候，重复的代码
 ### 4. Long Parameter List
 The are hard to understand, inconsistent and difficult to use.
 ### 5. Divergent Change
