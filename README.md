@@ -185,11 +185,11 @@ Subclasses that don't make uses of parents methods.
 Not all comments but the ones that are there because the code is bad.
 当一个方法使用过度的注释解释其中的逻辑时，说明这个方法应该被重构了。
 
-# 6. COMPOSING METHODS
-## 1. Extract Method
+# 6. COMPOSING METHODS(重新组织函数))
+## 1. Extract Method（提炼函数）
 
 You have a code fragment that can be grouped together.
-
+你可以将一些代码组合起来，然后放到一个方法中
 ```java
 
 	void printOwing(double amount) {
@@ -215,10 +215,12 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 * Increases the chances that other methods can use a method
 * Allows the higher-level methods to read more like a series of comments
+* 增加代码被复用的机会 
+* 阅读方法就像阅读一系列声明一样简单
 
 ```java
 
@@ -258,9 +260,9 @@ to
 	}
 ```
 
-## 2. Inline Method
+## 2. Inline Method （内联函数）
 A method's body is just as clear as its name.
-
+一个函数本体和函数名称一样容易理解
 ```java
 
 	int getRating() {
@@ -280,14 +282,16 @@ to
 		return (_numberOfLateDeliveries > 5) ? 2 : 1;
 	}
 ```
-**Motivation**
+**动机**
 
 * When Indirection is needless (simple delegation) becomes irritating.
 * If group of methods are badly factored and grouping them makes it clearer
+* 当间接不是必要的时候
+* 当一组方法被严格的分解，会使这个方法变得清晰
 
-
-## 3. Inline Temp
+## 3. Inline Temp （内联临时变量）
 You have a temp that is assigned to once with a simple expression, and the temp is getting in the way of other refactorings.
+你申明了一个临时的变量在一段表达里面，然后临时的变量将会阻挡你重构
 
 ```java
 
@@ -304,39 +308,47 @@ to
 **Motivation**
 
 * Use it with [4. Replace Temp with Query](#4-replace-temp-with-query)
+* 使用这个 [4. Replace Temp with Query](#4-replace-temp-with-query)
 
-
-## 4. Replace Temp with Query
+## 4. Replace Temp with Query （以查询取代临时变量）
 You are using a temporary variable to hold the result of an expression.
+你正在使用临时变量来保存表达式的结果
 ```java
 
 	double basePrice = _quantity * _itemPrice;
-	if (basePrice > 1000)
+	if (basePrice > 1000){
 		return basePrice * 0.95;
-	else
+	}
+	else{
 		return basePrice * 0.98;
+	}
 ```
 to
 
 ```java
 
-	if (basePrice() > 1000)
+	if (basePrice() > 1000){
 		return basePrice() * 0.95;
-	else
+	}
+	else{
 		return basePrice() * 0.98;
+	}
 	...
 	double basePrice() {
 		return _quantity * _itemPrice;
 	}
 ```
 
-**Motivation**
+**动机**
 
 * Replacing the temp with a query method, any method in the class can get at the information.
 * Is a vital step before [1. Extract Method](#1-extract-method)
+* 使用方法代替临时变量，类中的任何方法都可以获取信息
+* 这是一个十分重要的步骤在其之前[1. Extract Method](#1-extract-method)
 
-## 5. Introduce Explaining Variable
+## 5. Introduce Explaining Variable （引入解释性变量）
 You have a complicated expression
+有一个复杂的表达式
 ```java
 
 	if ( (platform.toUpperCase().indexOf("MAC") > -1) &&
@@ -359,13 +371,13 @@ to
 
 ```
 
-**Motivation**
+**动机**
 
 * When expressions are hard to read
-
-## 6. Split Temporary Variable
+* 当一个表达式难以理解时
+## 6. Split Temporary Variable （分解临时变量）
 You have a temporary variable assigned to more than once, but is not a loop variable nor a collecting temporary variable.
-
+你能有一个临时变量声明不止一次，但是它不是循环体中的变量或者要被存储的变量
 ```java
 
 	double temp = 2 * (_height + _width);
@@ -382,34 +394,45 @@ to
 	System.out.println (area);
 ```
 
-**Motivation**
+**动机**
 
 * Variables should not have more than one responsibility.
 * Using a temp for two different things is very confusing for the reader.
+* 变量不应该有多次的声明
+* 使用临时变量在两次不同的地方，是阅读者十分迷惑的
 
-## 7. Remove Assignments to Parameters
+## 7. Remove Assignments to Parameters（移除对参数的赋值）
 The code assign to a parameter
+下的代码将对参数进行了赋值
 ```java
 
 	int discount (int inputVal, int quantity, int yearToDate) {
-		if (inputVal > 50) inputVal -= 2;
+		if (inputVal > 50) {
+			inputVal -= 2;
+		}
+	}
 ```
 to
 ```java
 
 	int discount (int inputVal, int quantity, int yearToDate) {
 		int result = inputVal;
-		if (inputVal > 50) result -= 2;
+		if (inputVal > 50) {
+			result -= 2;
+		}
+	}
 ```
 
-**Motivation**
+**动机**
 
 * You can change the internals of  object is passed but do not point to another object.
 * Use only the parameter to represent what has been passed.
+* 改变内部的对象时可以的，但是不能将这个对象指向别的对象
+* 参数的作用仅仅是表达传递对象
 
-## 8. Replace Method with Method Object
+## 8. Replace Method with Method Object （以函数对象取代函数）
 You have a long method that uses local variables in such a way that you cannot apply Extract Method.
-
+将这个函数放进一个单独的对象，如此一来局部变量就变成对象内部的字段，然后你可以在同一个对象中将这个大型函数分解为多个小型函数
 ```java
 
 	class Order...
@@ -441,11 +464,13 @@ to
 
 ```
 
-**Motivation**
+**动机**
 
 * When a method has lot of local variables and applying decomposition is not possible
+* 当一个方法有很多的本地变量时进行分解时不容易的
 
 _This sample does not really needs this refactoring, but shows the way to do it._
+_它的样本本不应该这样的重构，但是为显示这样做的方法_
 ```java
 
 	Class Account
