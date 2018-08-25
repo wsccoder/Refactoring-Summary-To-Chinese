@@ -127,44 +127,63 @@ The longer a procedure is the more difficult is to understand.
 ### 3. Large Classes（超级大的类）
 When a class is trying to do too much, duplicated code cannot be far behind.
 当一个类变的越来越大的时候，重复的代码
-### 4. Long Parameter List
+### 4. Long Parameter List(长参数列表)
 The are hard to understand, inconsistent and difficult to use.
-### 5. Divergent Change
+长参数是很难去理解，不符合也较难使用
+### 5. Divergent Change（发散的改变）
 When one class is commonly changed in different ways for different reasons.
-### 6. Shotgun Surgery
+当一个类经常因为不同原因发生在不同的方向发生变化
+### 6. Shotgun Surgery（散弹枪修改）
 When every time you make a kind of change, you have to make a lot of little changes to a lot of different classes.
-### 7. Feature Envy
+每次你做一小部分修改时，都不的不需要做大量的修改在很多不同的类中
+### 7. Feature Envy（依恋情结）
 A method that seems more interested in a class other than the one it actually is in.
-### 8. Data Clumps
+方法似乎某个类的兴趣高于自己所处的类
+### 8. Data Clumps（数据泥团）
 Bunches of data(fields, parameters...) that hang around together.
-### 9. Primitive Obsession
+一堆数据杂糅在一起（字段， 参数）
+### 9. Primitive Obsession（基本类型偏执）
 Using primitives types instead of small objects.
-### 10. Switch Statements
+使用基本类型替代小对象
+### 10. Switch Statements（Switch 惊悚现身）
 The same switch statement scattered about a program in different places. Use polymorphism.
-### 11. Parallel Inheritance Hierarchies
+当程序中出现很多 switch 语句在很多地方，使用多态来进行替换
+### 11. Parallel Inheritance Hierarchies（平行继承类）
 Every time you make a subclass of one class, you also have to make a subclass of another.
-### 12. Lazy Class
+每当你为一个类增加一个子类，你不得不为另一个类增加相应的一个子类
+### 12. Lazy Class（冗余类）
 A class that isn't doing enough to pay for itself should be eliminated.
-### 13. Speculative Generality
+当一个类不足与为其自身买单它就应该被删除
+### 13. Speculative Generality（夸夸其谈未来性）
 All sorts of hooks and special cases to handle things that aren't required.
-### 14. Temporary Field
+所有的钩子和特殊情况处理那些不需要的东旭
+### 14. Temporary Field（令人迷惑的临时变量）
 An instance variable that is set only in certain circumstances.
-### 15. Message Chain
+一个临时变量仅仅为某种特殊情况做而定，这样的代码让人难以理解
+### 15. Message Chain（过长的消息链）
 When a client asks one object for another object, which the client then asks for yet another object...
-### 16. Middle Man
+当一个类请求调用一个对象，但是这个类又在调用其他的方法
+### 16. Middle Man（中间人）
 When an object delegates much of its functionality.
-### 17. Inappropriate Intimacy
+当一个对象委托大部分功能，开发中可能会过度的使用委托模式，导致某个类中的方法大都委托给其他方法处理
+### 17. Inappropriate Intimacy（不恰当的亲密关系）
 When classes access to much to another classes.
-### 18. Alternative Classes with Different Interfaces
+当两个类过度的亲密，需要将其拆散
+### 18. Alternative Classes with Different Interfaces（异曲同工的类）
 Classes with methods that look to similar.
-### 19. Incomplete Library Class
+类的方法过度相似
+### 19. Incomplete Library Class（不完美的库）
 When we need extra features in libraries.
-### 20. Data Class
+当我们使用外部依赖库时
+### 20. Data Class（数据类）
 Don't allow manipulation in Data Classes. Use encapsulation and immutability.
-### 21. Refused Bequest
+不要操作数据类，我们通过封装它的不变性
+### 21. Refused Bequest（被拒绝的遗赠）
 Subclasses that don't make uses of parents methods.
-### 22. Comments
+子类不想使用父类的方法
+### 22. Comments（过多没用的注释）
 Not all comments but the ones that are there because the code is bad.
+当一个方法使用过度的注释解释其中的逻辑时，说明这个方法应该被重构了。
 
 # 6. COMPOSING METHODS
 ## 1. Extract Method
