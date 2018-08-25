@@ -64,7 +64,7 @@ Contributions: Issues, comments and pull requests are super welcome :smiley:
 	- [24. Change Unidirectional Association to Bidirectional](#24-change-unidirectional-association-to-bidirectional)
 	- [25. Change Bidirectional Association to Unidirectional](#25-change-bidirectional-association-to-unidirectional)
 	- [26. Replace Magic Number with Symbolic Constant](#26-replace-magic-number-with-symbolic-constant)
-	- [27. Encapsulate Field](#27-encapsulate-field)
+	- [27. Encapsulate Field](#27-encapsulate-field) 
 	- [28. Encapsulate Collection](#28-encapsulate-collection)
 	- [29. Remove Record with data class](#29-remove-record-with-data-class)
 	- [30. Replace Type Code with Class](#30-replace-type-code-with-class)
