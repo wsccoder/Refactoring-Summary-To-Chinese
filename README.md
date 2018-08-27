@@ -519,8 +519,9 @@ to
 		}
 ```
 
-## 9. Substitute Algorithm
+## 9. Substitute Algorithm (算法替换)
 You want to replace an algorithm with one that is clearer.
+你想更换一个更为清晰高效的算法
 
 ```java
 
@@ -551,19 +552,22 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 * Break down something complex into simpler pieces.
+* 打破一些复杂的概念
 * Makes easier apply changes to the algorithm.
+* 使算法更容易修改
 * Substituting a large, complex algorithm is very difficult; making it simple can make the substitution tractable.
+* 替换一个大的复杂的算法是十分困难的，让算法变的简单更容易对算法进行替换
 
-
-# 7. Moving features between elements
-## 10. Move method
+# 7. Moving features between elements（移动对象）
+## 10. Move method （移动方法）
 A method is, or will be, using or used by more features of another class than the class on which it is defined.  
+在进行方法的初始定义的时候要想下以后会不会有其他的类也将会用到它
 
 _Create a new method with a similar body in the class it uses most. Either turn the old method into a simple delegation, or remove it altogether._  
-
+_一个类它通常会创建一个新的简单的方法体， 同时它会将9⃣旧的方法做一个简单的委托或者移除它_
 ```java
 
 	class Class1 {
@@ -584,13 +588,16 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 When classes do to much work or when collaborate too much and are highly coupled
+当一个类做了很多工作，或者这个类过度的耦合
 
-## 11. Move field
+## 11. Move field （移动字段）
 A field is, or will be, used by another class more than the class on which it is defined.
+当一个字段被定义的时候，可能不仅被不止一个类使用。
 _Create a new field in the target class, and change all its users._
+_创建一个字段在一个目标类中，然后改变所有的拥有者 _
 
 ```java
 
@@ -612,12 +619,13 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 If a field is used mostly by outer classes and before [12. Extract Class](#12-extract-class)
+如果一个字段被超过多个类引用 
 
 
-## 12. Extract Class
+## 12. Extract Class （提取类）
 You have one class doing work that should be done by two.
 _Create a new class and move the relevant fields and methods from the old class into the new class._
 ```java
