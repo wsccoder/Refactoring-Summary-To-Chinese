@@ -627,7 +627,11 @@ If a field is used mostly by outer classes and before [12. Extract Class](#12-ex
 
 ## 12. Extract Class （提取类）
 You have one class doing work that should be done by two.
+你有一个类，但是这个类做了它份外的事情
+
 _Create a new class and move the relevant fields and methods from the old class into the new class._
+_创建一个新的类，然后将相关字段移入到新的类中 _
+
 ```java
 
 	class Person {
@@ -652,17 +656,25 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 Classes grow.
+类随着业务的增长在变化
+
 _Split them when_:
+_在合适的时候进行分解它_
 
 * subsets of methods seem to be together
+* 相似的方法组合在一起
 * subsets of data usually change together or depend on each other
+* 数据子集通常一起变化或者相互依赖
 
-## 13. Inline Class
+## 13. Inline Class （一致的类）
 A class isn't doing very much.
+一个其实没做多少事情的类
+
 _Move all its features into another class and delete it._
+_将这个类整合到另外一个类中，然后删除这个类 _
 ```java
 
 	class Person {
@@ -688,9 +700,10 @@ to
 ```
 
 
-**Motivation**
+**动机**
 
 After refactoring normally there are a bunch of responsibilities moved out of the class, letting the class with little left.
+在重构的时候将这个类的基本信息移入到另外一个类中，然后在移除这个类
 
 ## 14. Hide Delegate
 A client is calling a delegate class of an object.  
