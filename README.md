@@ -439,8 +439,8 @@ You have a long method that uses local variables in such a way that you cannot a
 		double price() {
 			double primaryBasePrice;
 			double secondaryBasePrice;
-			double tertiaryBasePrice;
-			// long computation;
+            double tertiaryBasePrice;
+            // long computation;
 			...
 		}
 ```
@@ -705,9 +705,11 @@ to
 After refactoring normally there are a bunch of responsibilities moved out of the class, letting the class with little left.
 在重构的时候将这个类的基本信息移入到另外一个类中，然后在移除这个类
 
-## 14. Hide Delegate
+## 14. Hide Delegate （隐藏委托）
 A client is calling a delegate class of an object.  
+客户端其实调用的是对象的委托类
 _Create methods on the server to hide the delegate._
+_在服务端创建一个方法，然后隐藏这个委托类_
 ```java
 
 	class ClientClass {
@@ -732,7 +734,7 @@ to
 	}
 ```
 
-_The solution_
+_解决方法_
 ```java
 
 	class ClientClass{
@@ -747,18 +749,21 @@ _The solution_
 		}
 	}
 	// The delegate is hidden to the client class.
+	//委托类其实隐藏在客户类里面
 	// Changes won't be propagated to the client they will only affect the server
+	// 改变不会传播到客户端那边，因为它之后影响到服务端这边
 	class Delegate{
 		void doSomething(){...}
 	}
 
 ```
 
-**Motivation**
+**动机**
 
 Key of encapsulation.
+*关键在于封装*
 Classes should know as less as possible of other classes.
-
+*类应该尽量的使用其他的类*
 `> manager = john.getDepartment().getManager();`
 ```java
 
@@ -798,9 +803,11 @@ to
 	}
 ```
 
-## 15. Remove Middle Man
+## 15. Remove Middle Man （移除中间人）
 A class is doing too much simple delegation.
+一个类通过代理干了太多的事情
 _Get the client to call the delegate directly._
+_让客户直接调用委托_
 ```java
 
 	class ClientClass {
@@ -827,13 +834,16 @@ to
 ```
 
 
-**Motivation**
+**动机**
 
 When the "Middle man" (the server) does to much is time for the client to call the delegate directly.
+当客户类使用过多的中间人调用委托的方法
 
-## 16. Introduce Foreign Method
+## 16. Introduce Foreign Method （引入外加的函数）
 A server class you are using needs an additional method, but you can't modify the class.  
+一个类是引用的外部开源包，但是不能修改其内部的逻辑
 _Create a method in the client class with an instance of the server class as its first argument._
+_创建一个新的方法在这个类中，并以第一个参数的形式传入一个服务类实例_
 
 ```java
 
@@ -849,13 +859,17 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 When there is a lack of a method in class that you use a lot and you can not change that class.
+当你使用一个类，这个类你又不能对其进行修改的时候可以采用这样方式
 
-## 17. Introduce Local Extension
+
+## 17. Introduce Local Extension （引入本地扩展）
 A server class you are using needs several additional methods, but you can't modify the class.
+你需要为一个服务类提供一些额外的方法，但是你无法修改这个子类
 _Create a new class that contains these extra methods. Make this extension class a subclass or a wrapper of the original._
+_创建一个新的类，使它包含这些额外的方法。这个扩展的类成为源类的子类或者包装类_
 ```java
 
 	class ClientClass(){
@@ -883,10 +897,10 @@ to
 	}
 ```
 
-**Motivation**
+**动机**
 
 When plenty of [16. Introduce Foreign Method](#16-introduce-foreign-method) need to be added to a class.
-
+当我们使用 [16. Introduce Foreign Method](#16-introduce-foreign-method) 我们需要在这个类中添加额外的方法
 
 # 8. ORGANIZING DATA
 ## 18. Self Encapsulate Field
