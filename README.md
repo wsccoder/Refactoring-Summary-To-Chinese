@@ -902,10 +902,12 @@ to
 When plenty of [16. Introduce Foreign Method](#16-introduce-foreign-method) need to be added to a class.
 当我们使用 [16. Introduce Foreign Method](#16-introduce-foreign-method) 我们需要在这个类中添加额外的方法
 
-# 8. ORGANIZING DATA
-## 18. Self Encapsulate Field
+# 8. ORGANIZING DATA （组织数据）
+## 18. Self Encapsulate Field （对字段获取进行封装）
 You are accessing a field directly, but the coupling to the field is becoming awkward.   
+你可以直接获取对象，但是这样的话会变得越来越复杂
 _Create getting and setting methods for the field and use only those to access the field._  
+_通过创建setting getting 方法来获取这些字段_
 ```java
 
 	private int _low, _high;
@@ -925,12 +927,16 @@ to
 	int getHigh() {return _high;}
 ```
 
-**Motivation**  
+**动机**  
 Allows a subclass to override how to get that information with a method and that it supports more flexibility in managing the data, such as lazy initialization.
 
-## 19. Replace Data Value with Object
+允许子类可以覆盖如何get方法，并且这样的话它更加的支持灵活的管理，例如延迟加载
+
+## 19. Replace Data Value with Object （用对象替换数据值）
 You have a data item that needs additional data or behavior.  
+当你有个数据项需要进行添加数据或行为
 _Turn the data item into an object_
+_将数据项转换为对象_
 
 ```java
 
@@ -956,10 +962,11 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 Simple data items  aren't so simple anymore.
+简单的数据对象并不简单
 
-## 20. Change Value to Reference
+## 20. Change Value to Reference （将值改为引用）
 You have a class with many equal instances that you want to replace with a single object.  
 _Turn the object into a reference object._
 ```java
