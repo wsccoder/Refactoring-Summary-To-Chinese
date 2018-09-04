@@ -967,8 +967,10 @@ Simple data items  aren't so simple anymore.
 简单的数据对象并不简单
 
 ## 20. Change Value to Reference （将值改为引用）
-You have a class with many equal instances that you want to replace with a single object.  
+You have a class with many equal instances that you want to replace with a single object. 
+你有个类拥有很多单个对象，这些对象需要用一个单独的对象替代 
 _Turn the object into a reference object._
+_将这个对象转换为引用对象_
 ```java
 
 	class Order...{
@@ -987,6 +989,7 @@ to
 ```java
 
 	//Use Factory Method
+	//使用工厂方法
 	class Customer...
 		static void loadCustomers() {
 			new Customer ("Lemon Car Hire").store();
@@ -1000,12 +1003,15 @@ to
 			return (Customer) _instances.get(name);
 		}
 ```
-**Motivation**  
+**动机**  
 Reference objects are things like customer or account. Each object stands for one object in the real world, and you use the object identity to test whether they are equal.
+引用对象是类似于消费者或者账单这样的对象，每个对象代表这一类对象在一个真实的世界，并使用对象表示来测试它们是否相同
 
-## 21. Change Reference to Value
+## 21. Change Reference to Value （将引用改为值）
 You have a reference object that is small, immutable, and awkward to manage.  
+你有一个有一个引用对象是很小，不变，难以管理的
 _Turn it into a value object_
+_将其转换为值对象_
 ```java
 
 	new Currency("USD").equals(new Currency("USD")) // returns false
@@ -1015,12 +1021,15 @@ to
 
 	new Currency("USD").equals(new Currency("USD")) // now returns true
 ```
-**Motivation**  
+**动机**  
 Working with the reference object becomes awkward. The reference object is immutable and small. Used in distributed or concurrent systems.
+使用引用对象是变得越来月复杂，并且引用对象是不变和单一的。尤其在分布式和并发系统中
 
-## 22. Replace Array with Object
+## 22. Replace Array with Object （用对象代替数组）
 You have an array in which certain elements mean different things.  
+_你拥有一个数组，其中这些元素是不同的_
 _Replace the array with an object that has a field for each element_
+_使用一个对象来替换这个数组，将数组的元素赋值在对象的属性上_
 ```java
 
 	String[] row = new String[3];
@@ -1034,8 +1043,10 @@ to
 	row.setName("Liverpool");
 	row.setWins("15");
 ```
-**Motivation**  
+**动机**  
 Arrays should be used only to contain a collection of similar objects in some order.
+
+数组应该被用在一些相似的集合对象序列中
 
 ## 23. Duplicate Observed Data
 You have domain data available only in a GUI control, and domain methods need access.  
