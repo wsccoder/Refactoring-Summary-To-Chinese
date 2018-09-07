@@ -1010,7 +1010,7 @@ Reference objects are things like customer or account. Each object stands for on
 ## 21. Change Reference to Value （将引用改为值）
 You have a reference object that is small, immutable, and awkward to manage.  
 你有一个有一个引用对象是很小，不变，难以管理的
-_Turn it into a value object_
+_Turn it into a value object_ 
 _将其转换为值对象_
 ```java
 
