@@ -1048,8 +1048,9 @@ Arrays should be used only to contain a collection of similar objects in some or
 
 数组应该被用在一些相似的集合对象序列中
 
-## 23. Duplicate Observed Data
+## 23. Duplicate Observed Data （监控数据对象）
 You have domain data available only in a GUI control, and domain methods need access.  
+可能你有一些domain数据是通过GUI控制的与此同时这些domain数据是需要访问的
 _Copy the data to a domain object. Set up an observer to synchronize the two pieces of data_  
 **Motivation**  
  To separate code that handles the user interface from code that handles the business logic.
