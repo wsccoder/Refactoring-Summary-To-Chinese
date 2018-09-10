@@ -1052,11 +1052,15 @@ Arrays should be used only to contain a collection of similar objects in some or
 You have domain data available only in a GUI control, and domain methods need access.  
 可能你有一些domain数据是通过GUI控制的与此同时这些domain数据是需要访问的
 _Copy the data to a domain object. Set up an observer to synchronize the two pieces of data_  
-**Motivation**  
+_往一些实体对象复制一些数据，通过设置观察者来同步两部分数据_
+**冬季**  
  To separate code that handles the user interface from code that handles the business logic.
-## 24. Change Unidirectional Association to Bidirectional
+ 为了将代码从用户界面分解到业务处理层
+## 24. Change Unidirectional Association to Bidirectional（将单向联系改为双向联系）
 You have two classes that need to use each other's features, but there is only a one-way link.  
+你有两个对象，这两个对象需要使用对方的特征属性，但是目前只有一种连接方式
 _Add back pointers, and change modifiers to update both sets_
+_添加返回指针，然后更改修饰符已更改两个对象_
 ```java
 
 	class Order...
@@ -1115,17 +1119,25 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 When the object referenced needs access access to the object that refer to it.
+当对象引用需要互相引用的时候，你应该采用这种方法
 
-## 25. Change Bidirectional Association to Unidirectional
+## 25. Change Bidirectional Association to Unidirectional （将单向改为双向的联系）
 You have a two-way association but one class no longer needs features from the other.  
+当你有个双向联系的类，但是在后期一个类不在需要另一个类中的属性了
 _Drop the unneeded end of the association_  
-**Motivation**  
+_扔掉不需要的联系_
+**动机**  
 If Bidirectional association is not needed, reduce complexity, handle zombie objects, eliminate interdependency
-## 26. Replace Magic Number with Symbolic Constant
+当双向联系不在需要，减少复杂度，移除僵尸对象，消除相互依赖
+
+## 26. Replace Magic Number with Symbolic Constant （使用符号来替代魔法字符串）
 You have a literal number with a particular meaning.  
+你有一个特定含义的字符串
+
 _Create a constant, name it after the meaning, and replace the number with it_
+_创建一个常量，名称根据它的意思命名然后替换那个数字_
 ```java
 
 	double potentialEnergy(double mass, double height) {
@@ -1140,12 +1152,15 @@ to
 	}
 	static final double GRAVITATIONAL_CONSTANT = 9.81;
 ```
-**Motivation**  
+**动机**  
 Avoid using Magic numbers.
+避免使用魔法数字
 
-## 27. Encapsulate Field
+## 27. Encapsulate Field  （封装字段）
 There is a public field.  
+这里有一个公共的字段
 _Make it private and provide accessors_
+_将它改为私有的并提供访问函数_
 ```java
 
 	public String _name
@@ -1154,15 +1169,22 @@ to
 ```java
 
 	private String _name;
-	public String getName() {return _name;}
-	public void setName(String arg) {_name = arg;}
+	public String getName() {
+		return _name;
+	}
+	public void setName(String arg) {
+		_name = arg;
+	}
 ```
-**Motivation**  
+**动机**  
 You should never make your data public.
+你应该将你数据公开
 
-## 28. Encapsulate Collection
+## 28. Encapsulate Collection （封装集合）
 A method returns a collection.  
+一个返回几个的方法
 _Make it return a read-only view and provide add/remove methods_
+_确保返回一个只读的影像对象，然后提供添加和移除方法_
 ```java
 
 	class Person {
@@ -1185,11 +1207,15 @@ to
 		void removeCourses(:Course){}
 	}
 ```
-**Motivation**   
+**动机**   
 * Encapsulated reduce the coupling of the owning class to its clients.
+* 封装减少了拥有类和和其客户端的耦合
 * The getter should not return the collection object itself.
+* getter 方法不应该返回集合的本身
 * The getter should return something that prevents manipulation of the collection and hides unnecessary details.
+* getter方法应返回对集合进行操作的内容并隐藏其中不必要的细节
 * There should not be a setter for collection, only operations to add and remove elements.
+* 这个几个不应该有setter方法，只能添加和移除操作
 
 ## 29. Remove Record with data class
 You need to interface with a record structure in a traditional programming environment.  
