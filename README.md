@@ -1217,13 +1217,17 @@ to
 * There should not be a setter for collection, only operations to add and remove elements.
 * 这个几个不应该有setter方法，只能添加和移除操作
 
-## 29. Remove Record with data class
+## 29. Remove Record with data class (在数据类中移除 记录值)
 You need to interface with a record structure in a traditional programming environment.  
+你必须面对一个记录值在传统的编程环境中
 _Make a dumb data object for the record._
+_使用一个僵尸数据对象代替记录值_
 
-**Motivation**  
+**动机**  
 * Copying a legacy program
+* 复制一个传奇代码
 * Communicating a structured record with a traditional programming API or database.
+* 使用传统的API编程和数据库来代替一个记录值
 ## 30. Replace Type Code with Class
 A class has a numeric type code that does not affect its behavior.  
 _Replace the number with a new class._
