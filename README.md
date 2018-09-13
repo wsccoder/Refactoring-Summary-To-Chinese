@@ -1228,9 +1228,12 @@ _使用一个僵尸数据对象代替记录值_
 * 复制一个传奇代码
 * Communicating a structured record with a traditional programming API or database.
 * 使用传统的API编程和数据库来代替一个记录值
-## 30. Replace Type Code with Class
-A class has a numeric type code that does not affect its behavior.  
+
+## 30. Replace Type Code with Class (使用类来替代类别代码)
+A class has a numeric type code that does not affect its behavior.
+一个类拥有数字类别码，不能影响其行为  
 _Replace the number with a new class._
+_使用类来代替数字_
 ```java
 
 	class Person{
@@ -1255,12 +1258,15 @@ to
 		AB:BloodGroup;
 	}
 ```
-**Motivation**  
+**动机**  
 Statically type checking.
+静态类别检查
 
-## 31. Replace Type Code with Subclasses
-You have an immutable type code that affects the behavior of a class.  
+## 31. Replace Type Code with Subclasses （使用子类来替代类别代码）
+You have an immutable type code that affects the behavior of a class.
+在一个类中拥有一个不变的类型码影响整个类的行为  
 _Replace the type code with subclasses._
+_使用子类来替代这个不变的类型码_
 ```java
 
 	class Employee...
@@ -1292,11 +1298,14 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Execute different code depending on the value of a type.
+* 执行不同的代码逻辑取决于这个type的值
 * When each type code object has unique features.
+* 当每个type对象有着唯一的特征
 * Structure to implement [38. Replace Conditional with Polymorphism](#38-replace-conditional-with-polymorphism)
+* 应用于架构体
 * Use of [30. Replace Type Code with Class](#30-replace-type-code-with-class)
 
 ## 32. Replace Type Code with State/Strategy
