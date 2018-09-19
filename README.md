@@ -1258,7 +1258,7 @@ to
 		AB:BloodGroup;
 	}
 ```
-**动机**  
+**动机**    
 Statically type checking.
 静态类别检查
 
