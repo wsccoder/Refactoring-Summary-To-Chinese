@@ -1254,7 +1254,7 @@ to
 	class BloodGroup{
 		O:BloodGroup;
 		A:BloodGroup;
-		B:BloodGroup;
+		B:BloodGroup; 
 		AB:BloodGroup;
 	}
 ```
