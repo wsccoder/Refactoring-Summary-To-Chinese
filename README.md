@@ -1279,7 +1279,7 @@ _使用子类来替代这个不变的类型码_
 		Employee (int type) {
 			_type = type;
 		}
-	}
+	} 
 ```
 to
 ```java
