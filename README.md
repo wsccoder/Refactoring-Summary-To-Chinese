@@ -1308,9 +1308,11 @@ to
 * 应用于架构体
 * Use of [30. Replace Type Code with Class](#30-replace-type-code-with-class)
 
-## 32. Replace Type Code with State/Strategy
-You have a type code that affects the behavior of a class, but you cannot use subclassing.  
+## 32. Replace Type Code with State/Strategy（通过状态模式或者策略模式来代替类型码）
+You have a type code that affects the behavior of a class, but you cannot use subclassing. 
+在类中有个类型码，并通过这个类型码来影响行为，但是你不能使用子类 
 _Replace the type code with a state object_
+_通过状态对象来代替这个类型码_
 ```java
 
 	class Employee {
@@ -1377,14 +1379,18 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Similar to [31. Replace Type Code with Subclasses](#31-replace-type-code-with-subclasses), but can be used if the type code changes during the life of the object or if another reason prevents subclassing.
+和[31. Replace Type Code with Subclasses](#31-replace-type-code-with-subclasses) 是相似的，但是它可以使用在类型码发生了改变在对象的生命周期发生了变化或者另一个原因阻止了子类的变化，则可以使用它
 * It uses either the state or strategy pattern
+* 它通常是和状态模式或者策略模式配合使用
 
-## 32. Replace Subclass with Fields
+## 32. Replace Subclass with Fields（用字段代替子类）
 You have subclasses that vary only in methods that return constant data.  
+你的子类仅在返回常数变量数据变量的方法中有所不同
 _Change the methods to superclass fields and eliminate the subclasses_
+_将这个方法提升到父类中，并移除这个子类_
 ```java
 
 	abstract class Person {
@@ -1428,34 +1434,43 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Subclasses that consists only of constant methods is not doing enough to be worth existing.
+* 当子类的某个方法不足与继续存在
 * Remove such subclasses completely by putting fields in the superclass.
+* 将这个子类彻底删除，并将这个字段上移到父类中
 * Remove the extra complexity of the subclasses.
+* 删除额外的子类
 
-# 9. SIMPLIFYING CONDITIONAL EXPRESSIONS
+# 9. SIMPLIFYING CONDITIONAL EXPRESSIONS（简化条件表达式）
 
-## 33. Decompose Conditional
+## 33. Decompose Conditional （分解条件）
 You have a complicated conditional (if-then-else) statement.     
+你有一个复杂的条件（大量的if else then ）
 _Extract methods from the condition, then part, and else parts_
+_使用额外的方法代替这个表达式，将then 放在一部分，else 放在一部分_
 ```java
 
 	if (date.before (SUMMER_START) || date.after(SUMMER_END))
 		charge = quantity * _winterRate + _winterServiceCharge;
-	else charge = quantity * _summerRate;
+	else 
+		charge = quantity * _summerRate;
 ```
 to
 ```java
 
 	if (notSummer(date))
 		charge = winterCharge(quantity);
-	else charge = summerCharge (quantity);
+	else 
+		charge = summerCharge (quantity);
 ```
-**Motivation**  
+**动机**  
 
 * Highlight the condition and make it clearly what you are branching on.
+* 将条件表达式高亮，这样的话你能清楚将其分开
 * Highlight the reason for the branching
+* 对分叉之后的结果进行高亮
 
 ## 34. Consolidate Conditional Expression
 You have a sequence of conditional tests with the same result.  
