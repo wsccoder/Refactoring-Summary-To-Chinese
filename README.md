@@ -2201,7 +2201,7 @@ _Extract the subset into an interface_
 		getDepartment()
 	}
 ```
-to
+to  
 ```java
 
 	interface Billable	{
