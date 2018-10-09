@@ -1496,9 +1496,11 @@ to
 * Sets you up for [1. Extract Method](#1-extract-method).
 * Clarify your code (replaces a statement of what you are doing with why you are doing it.)
 
-## 35. Consolidate Duplicate Conditional Fragments
+## 35. Consolidate Duplicate Conditional Fragments （合并重复的条件片段）
 The same fragment of code is in all branches of a conditional expression.  
+在条件表达式的每个分支上有着相同的一片代码
 _Move it outside of the expression._
+_将这段重复代搬移到条件表达式之外_
 ```java
 
 	if (isSpecialDeal()) {
@@ -1522,12 +1524,15 @@ to
 	send();
 
 ```
-**Motivation**  
+**动机**  
 Makes clearer what varies and what stays the same.
+使得变量清晰并保持相同
 
-## 36. Remove Control Flag
+## 36. Remove Control Flag （移除控制标记）
 You have a variable that is acting as a control flag for a series of boolean expressions.  
+在一系列的布尔表达式中，某个变量带有“控制标记”的作用
 _Use a break or return instead_
+_已break或者return语句取代控制标记_
 ```java
 
 	void checkSecurity(String[] people) {
@@ -1562,14 +1567,18 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Control flag are used to determine when to stop looking, but modern languages enforce the use of `break` and `continue`
+* 控制标记的作用是在于决定是否继续下面流程，但是现代语言注重于使用`break` 和 `continue`
 * Make the real purpose of the conditional much more clear.
+* 确保真实的条件表达式是清晰的
 
-## 37. Replace Nested Conditional with Guard Clauses
+## 37. Replace Nested Conditional with Guard Clauses （以卫语句取代嵌套的条件表达式）
 A method has conditional behavior that does not make clear the normal path of execution.  
+函数的条件逻辑使人难以看清正常的执行路径
 _Use guard clauses for all the special cases_
+_使用卫语句表现所有的特殊情况_
 ```java
 
 	double getPayAmount() {
@@ -1595,16 +1604,22 @@ to
 		return normalPayAmount();
 	};
 ```
-**Motivation**  
+**动机**  
 
 * If the condition is an unusual condition, check the condition and return if the condition is true.
+* 如果这个条件是非同寻常的条件，检查这条件是否符合然后返回true
 * This kind of check is often called a **guard clause** [Beck].
+* 这样大度的检查被称为“卫语句”
 * If you are using an if-then-else construct you are giving equal weight to the if leg and the else leg.
+* 对某一条分支已特别的重，如果使用if-then-else 结构，你对if分支和else分支的重要性是同等的
 * This communicates to the reader that the legs are equally likely and important.
+* 各个分支具有同一样的重要性
 * Instead the **guard clause** says, _"This is rare, and if it happens, do something and get out."_
+* 取代之前的观念 “每个函数只能有一个入口和一个出口”
 
-## 38. Replace Conditional with Polymorphism
+## 38. Replace Conditional with Polymorphism （以多态取代条件表达式）
 You have a conditional that chooses different behavior depending on the type of an object.   
+你手上有一个条件表达式，它根据对象的类型的不同选择不同的行为
 _Move each leg of the conditional to an overriding method in a subclass. Make the original method abstract_
 ```java
 
