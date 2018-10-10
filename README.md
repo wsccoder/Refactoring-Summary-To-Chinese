@@ -1621,6 +1621,7 @@ to
 You have a conditional that chooses different behavior depending on the type of an object.   
 你手上有一个条件表达式，它根据对象的类型的不同选择不同的行为
 _Move each leg of the conditional to an overriding method in a subclass. Make the original method abstract_
+_将条件表达式的所有分支放进一个子类内的覆盖函数中，然后将原始函数声明为抽象函数_
 ```java
 
 	class Employee {
@@ -1670,34 +1671,49 @@ to
 		}
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Avoid writing an explicit conditional when you have objects whose behavior varies depending on their types.
+* 如果对象的行为因其类型而异，请避免编写显示的条件
 * Switch statements should be less common in object oriented programs
+* Switch 声明在面向对象语言中应该尽量少的被使用
 
-## 39. Introduce Null Object
+## 39. Introduce Null Object （引入Null 对象）
 You have repeated checks for a null value.  
+你不得不检查对象是否为Null对象
 _Replace the null value with a null object_
+_将null值替换为null对象_
 ```java
 
-	if (customer == null) plan = BillingPlan.basic();
-	else plan = customer.getPlan();
+	if (customer == null){
+		plan = BillingPlan.basic();
+	} 
+	else{
+		plan = customer.getPlan();
+	}
+
 ```
 to
 ```java
 
-	class Customer {}
+	class Customer {
 
-	class NullCusomer extends Customer {}
+	}
+
+	class NullCusomer extends Customer {
+
+	}
 ```
-**Motivation**
+**动机**
 
 * The object, depending on its type, does the right thing. Null objects should also apply this rule.
-* Use **Null Object Pattern** is the little brother of **Special Case Pattern**.
+* 对象根据其类型做正确的事情，Null对象也应该遵守这个规则
 
-## 40. Introduce Assertion
-A section of code assumes something about the state of the program.  
+## 40. Introduce Assertion （引入断言）
+A section of code assumes something about the state of the program.
+某段代码需要对程序状态做出某种假设  
 _Make the assumption explicit with an assertion_
+_已断言明确表现这种假设_
 ```java
 
 	double getExpenseLimit() {
@@ -1717,18 +1733,25 @@ to
 			_primaryProject.getMemberExpenseLimit();
 	}
 ```
-**Motivation**  
+**动机**  
 
 * Assertions are conditional statements that are assumed to be always true.
+* 断言是一种明确表达会为true的行为
 * Assertion failures should always result in unchecked exceptions.
+* 当断言失败时往往是一个非受控的异常
 * Assertions usually are removed for production code.
+* 断言往往在生产代码中移除
 * As communication  aids: they help the reader understand the assumptions the code is making.
+* 交流层面 ： 断言能使程序的阅读者理解代码所做的假设
 * As debugging aids: assertions can help catch bugs closer to their origin.
+* 在调试的角度 ： 断言能使编程者尽可能近的接触bug
 
-# 10. MAKING METHOD CALLS SIMPLER
-## 41. Rename method
+# 10. MAKING METHOD CALLS SIMPLER (简化函数的调用)
+## 41. Rename method （函数改名）
 The name of a method does not reveal its purpose.  
+函数的名称不能表达函数的用途
 _Change the name of the method_
+_修改函数名称_
 ```java
 	getinvcdtlmt()
 ```
@@ -1736,12 +1759,15 @@ to
 ```java
 	getInvoiceableCreditLimit
 ```
-**Motivation**   
+**动机**   
 Methods names must communicate their intention.
+函数的名称最好能表达函数的意图
 
-## 42. Add Parameter
+## 42. Add Parameter （添加参数）
 A method needs more information from its caller.  
+某个函数需要从调用端得到更多的信息
 _Add a parameter for an object that can pass on this information_
+_为此函数添加一个对象函数，让改对象带进函数所需要信息_
 ```java
 	getContact()
 ```
@@ -1749,11 +1775,15 @@ to
 ```java
 	getContact(:Date)
 ```
-**Motivation**    
+**动机**    
 After changed a method you require more information.
-## 43. Remove Parameter
+在改变方法之后，你获得更多的信息
+
+## 43. Remove Parameter（移除参数）
 A parameter is no longer used by the method body.  
+一个参数不在函数中使用了
 _Remove it_
+_移除它_
 ```java
 	getContact(:Date)
 ```
@@ -1761,12 +1791,15 @@ to
 ```java
 	getContact()
 ```
-**Motivation**    
+**动机**    
 A parameter is no more needed.
+一个参数不再使用还留着它干嘛？
 
-## 44. Separate Query from Modifier
+## 44. Separate Query from Modifier （将查询函数和修改函数分离）
 You have a method that returns a value but also changes the state of an object.  
+某个函数即返回函数的状态值，又修改对象的状态
 _Create two methods, one for the query and one for the modification_
+_创建两个不同的函数，其中一个负责查询，另一个负责修改_
 ```java
 	getTotalOutStandingAndSetReadyForSummaries()
 ```
@@ -1775,11 +1808,15 @@ to
 	getTotalOutStanding()
 	SetReadyForSummaries()
 ```
-**Motivation**    
+**动机**    
 Signaling methods with side effects and those without.
-## 45. Parameterize Method
+将有副作用的方法和没有副作用的方法分开
+
+## 45. Parameterize Method （令函数携带参数）
 Several methods do similar things but with different values contained in the method body.  
+若干函数做了类似的工作，但在函数本体中却包含了不同的值
 _Create one method that uses a parameter for the different values_
+_创建单一函数，已参数表达那些不同的值_
 ```java
 	fivePercentRaise()
 	tenPercentRaise()
@@ -1788,11 +1825,15 @@ to
 ```java
 	raise(percentage)
 ```
-**Motivation**    
+**动机**    
 Removes duplicate code and increases flexibility.
-## 46. Replace Parameter with Explicit Methods
+移除重复的代码提高灵活度
+
+## 46. Replace Parameter with Explicit Methods （已明确函数取代参数）
 You have a method that runs different code depending on the values of an enumerated parameter.  
+🈶一个函数，其中完全取决于参数值而采取不同的行为
 _Create a separate method for each value of the parameter_
+_针对该函数的每一个可能值，建立一个独立函数_
 ```java
 
 	void setValue (String name, int value) {
@@ -1817,15 +1858,20 @@ to
 		_width = arg;
 	}
 ```
-**Motivation**
+**动机**
 
 * Avoid the conditional behavior
+* 避免条件行为
 * Gain compile time checking
+* 在编译器进行检查
 * Clearer Interface
+* 清晰的接口
 
-## 47. Preserve Whole Object
+## 47. Preserve Whole Object （保持对象的完整）
 You are getting several values from an object and passing these values as parameters in a method call.  
+你从某个对象支行取出若干值，将他们作为某一次函数调用时的参数
 _Send the whole object instead_
+_改为传递一整个对象_
 ```java
 
 	int low = daysTempRange().getLow();
@@ -1837,16 +1883,22 @@ to
 
 	withinPlan = plan.withinRange(daysTempRange());
 ```
-**Motivation**
+**动机**
 
 * Make parameters list robust to changes
+* 使参数列表在变化的时候具有鲁棒性
 * Make code more readeable
+* 使代码更与易读
 * Remove possible duplicate code already done in the object passed
+* 在代码中移除相似的重复的代码
 * Negative: It creates a dependency between the parameter object and the called.
+*  消极的 ： 增加了函数参数在调用时的依赖
 
-## 48. Replace Parameter with Method
+## 48. Replace Parameter with Method （已函数取代参数）
 An object invokes a method, then passes the result as a parameter for a method. The receiver can also invoke this method.  
+对象调用某个函数，并将其所得的结果作为参数，传递给另一个函数。而接受该参数的函数本身也能够调用钱一个函数
 _Remove the parameter and let the receiver invoke the method_
+_将函数接受者去除该项参数，并直接调用前一个函数_
 ```java
 
 	int basePrice = _quantity * _itemPrice;
@@ -1859,15 +1911,20 @@ to
 	int basePrice = _quantity * _itemPrice;
 	double finalPrice = discountedPrice (basePrice);
 ```
-**Motivation**
+**动机**
 
 * If a method can get a value that is passed in as parameter by another means, it should.
+* 如果一个函数可以通过其他的途径获得参数值，那么它就不应该通过参数取得该值
 * If the receiving method can make the same calculation (does not reference any of the parameters of the calling method)
+* 如果你能有其他的方法或者相同的计算值
 * If you are calling a method on a different object that has a reference to the calling object.
+* 如果要在对调用对象的引用的其他对象上调用方法
 
-## 49. Introduce Parameter Object
+## 49. Introduce Parameter Object （引入参数对象）
 You have a group of parameters that naturally go together.  
+某些参数总是很自然的同时出现
 _Replace them with an object_
+_以一个对象取代这些参数_
 ```java
 
 	class Customer{
@@ -1885,14 +1942,18 @@ to
 		amountOverdueIn (: DateRange)
 	}
 ```
-**Motivation**
+**动机**
 
 * Reduces the size of the parameter list
+* 减少参数列表的长度
 * Make the code more consistent
+* 使代码看的更加简洁
 
-## 50. Remove Setting Method
-A field should be set at creation time and never altered.  
+## 50. Remove Setting Method （移除设值函数）
+A field should be set at creation time and never altered. 
+类中的某个字段应该在对象创建时被设值，然后就不再改变 
 _Remove any setting method for that field_
+_去掉该字段的所有设值函数_
 ```java
 
 	class Employee{
@@ -1906,12 +1967,15 @@ to
 		¯\_(ツ)_/¯
 	}
 ```
-**Motivation**   
+**动机**   
 Make your intention  clear: If you don't want that field to change once is created, then don't provide a setting method (and make the field final).
+确保你的清晰的目的 ： 如果你想你的字段在创建之后就不要被改变了，你就不应该提供一个setting方法用于确保你的字段是否不被改变的
 
-## 51. Hide Method
+## 51. Hide Method （隐藏函数）
 A method is not used by any other class.  
+有一个函数，从来没有被其他任何类用到
 _Make the method private_
+_将这个函数修改为 private_
 ```java
 
 	class Employee{
@@ -1925,12 +1989,15 @@ to
 		private method()
 	}
 ```
-**Motivation**   
+**动机**   
 Whenever a method is not needed outside its class it should be hidden
+如果一个方法不需要被外部调用，那么就应该讲这个方法隐藏
 
-## 52. Replace Constructor with Factory Method
+## 52. Replace Constructor with Factory Method （已工厂函数取代构造函数）
 You want to do more than simple construction when you create an object.  
+在创建对象时不仅仅是做简单的健够动作
 _Replace the constructor with a factory method_
+_将构造函数替换为工厂函数_
 ```java
 
 	Employee (int type) {
@@ -1944,12 +2011,16 @@ to
 		return new Employee(type);
 	}
 ```
-**Motivation**   
+**动机**   
 Create an object depending on its subclasses  (types). Constructors can only return an instance of the object that is asked for so a Factory method is needed.
 
-## 53. Encapsulate Downcast
+创建一个对象依赖于其子类，构造函数只能返回单一类型的对象，因此你需要将构造函数替换为一个工厂函数
+
+## 53. Encapsulate Downcast （封装向下转型）
 A method returns an object that needs to be downcasted by its callers.  
+某个函数返回的对象，需要由调用者执行向下转型
 _Move the downcast to within the method_
+_将向下转型动作转移到函数中_
 
 ```java
 
@@ -1964,13 +2035,17 @@ to
 		return (Reading) readings.lastElement();
 	}
 ```
-**Motivation**   
-Provide as result type, the most specific type of the method signature.      
+**动机**   
+Provide as result type, the most specific type of the method signature.    
+将一个方法最有效的返回值进行返回给函数的调用者  
 If the signature is to general, check the uses the clients do of that method and if coherent, provide a more specific one.
+如果类型是准确的，检查使用这个对象的方法并提供一个更为有效的方法
 
-## 54. Replace Error Code with Exception
+## 54. Replace Error Code with Exception （以异常取代错误码）
 A method returns a special code to indicate an error.   
+某个函数返回一个特定的代码，用以表示某种错误情况
 _Throw an exception instead_
+_改用异常将其抛出去_
 ```java
 
 	int withdraw(int amount) {
@@ -1991,11 +2066,15 @@ to
 		_balance -= amount;
 	}
 ```
-**Motivation**
+**动机**
 When a program that spots an error can't figure out what to do about it. It needs to let its caller know, and the caller may pass the error up the chain.
-## 55. Replace Exception with Test
+当一个程序在发生了一个不可处理的错误时，你需要使这个函数的调用者知道。向上抛出异常，让上层调用者知道
+
+## 55. Replace Exception with Test （已测试取代异常）
 You are throwing a checked exception on a condition the caller could have checked first.   
+面对一个调用者可以预先检查的条件，你抛出了一个异常
 _Change the caller to make the test first_
+_修改调用者，使它在调用函数之前先做检查_
 ```java
 
 	double getValueForPeriod (int periodNumber) {
@@ -2015,16 +2094,21 @@ to
 		return _values[periodNumber];
 }
 ```
-**Motivation**
+**动机**
 
 * Do not overuse Exceptions they should be used for exceptional behavior (behavior that is unexpected).
+* 不要过度使用异常，它们应该被用在检查异常上
 * Do not use them as substitute for conditional tests.
+* 不要用它来代替条件测试
 * Check expected wrong conditions before before calling the operation.
+* 检查异常错误条件在调用方法之前
 
-# 11. DEALING WITH GENERALIZATION
-## 56. Pull up field
-Two subclasses have the same field.   
+# 11. DEALING WITH GENERALIZATION （处理概括关系）
+## 56. Pull up field （字段上移）
+Two subclasses have the same field.
+两个子类拥有相同的字段   
 _Move the field to the superclass_   
+_将该字段移到超类中_
 ```java
 
 	class Salesman extends Employee{
@@ -2044,14 +2128,18 @@ to
 	class Engineer extends Employee{}
 
 ```
-**Motivation**
+**动机**
 
 * Removes the duplicate data declaration.
+* 删除重复的代码
 * Allows  to move  behavior from the subclasses to the superclass.
+* 允许将子类的行为转移到父类中
 
-## 57. Pull Up Method
-You have methods with identical results on subclasses.   
+## 57. Pull Up Method （构造函数本体上移）
+You have methods with identical results on subclasses.  
+你在各个子类中拥有一些构造函数，他们的本体几乎完全一致 
 _Move them to the superclass_
+_在超类中新建一个构造函数，并在子类构造函数中调用它_
 ```java
 
 	class Salesman extends Employee{
@@ -2071,13 +2159,16 @@ to
 	class Engineer extends Employee{}
 
 ```
-**Motivation**
+**动机**
 
 * Eliminates duplicated behavior.
+* 消除重复的行为
 
-## 58. Pull Up Constructor Body
+## 58. Pull Up Constructor Body （构造函数本体上移）
 You have constructors on subclasses with mostly identical bodies.  
+在子类中的构造函数与父类中的构造函数是相同的
 _Create a superclass constructor; call this from the subclass methods_  
+_在超类中创建一个构造函数，并在子类构造函数中调用它_
 ```java
 
 	class Manager extends Employee...
@@ -2096,14 +2187,18 @@ to
 		_grade = grade;
 	}
 ```
-**Motivation**
+**动机**
 
 * Constructors are not the same as methods.
+* 构造函数与方法不同
 * Eliminates duplicated behavior.
+* 消除重复的代码
 
-## 59. Push Down Method
-Behavior on a superclass is relevant only for some of its subclasses.   
-_Move it to those subclasses._   
+## 59. Push Down Method （方法下移）
+Behavior on a superclass is relevant only for some of its subclasses.
+父类的某个方法至于某个子类相关
+_Move it to those subclasses._
+_将其移到子类中_   
 ```java
 
 	class Employee{
@@ -2120,11 +2215,15 @@ to
 	}
 	class Engineer extends Employee{}
 ```
-**Motivation**
+**动机**
 When a method makes only sense in the subclass.
-## 60. Push Down Field
-A field is used only by some subclasses.  
+当方法只在子类中显现
+
+## 60. Push Down Field （字段下移）
+A field is used only by some subclasses. 
+超类的字段只在某个子类中用到 
 _Move the field to those subclasses_
+_将这个字段移到需要它的那些子类中去_
 ```java
 
 	class Employee{
@@ -2141,11 +2240,15 @@ to
 	}
 	class Engineer extends Employee{}
 ```
-**Motivation**
+**动机**
 When a field makes only sense in the subclass.
-## 61. Extract Subclass
+当一个字段只在子类中使用时
+
+## 61. Extract Subclass （提炼子类）
 A class has features that are used only in some instances.  
+类中的某些特性只被某些实例用到
 _Create a subclass for that subset of features_  
+_新建一个子类，将上面所说的那一部分特性移到子类中去_
 ```java
 
 	class JobItem	{
@@ -2166,11 +2269,15 @@ to
 		getEmployee()
 	}
 ```
-**Motivation**
+**动机**
 When a class has behavior used for some instances of the class and not for others.
-## 62. Extract Superclass
-You have two classes with similar features.   
+当一个类的行为只用在某些实例中而不用在其他类中
+
+## 62. Extract Superclass （提炼超类）
+You have two classes with similar features.  
+两个类具有相似特性 
 _Create a superclass and move the common features to the superclass_  
+_创建一个父类，然后将这两个类中相同的部分移到父类中，然后在继承这个父类_
 ```java
 
 	class Department{
@@ -2202,11 +2309,15 @@ to
 	}
 
 ```
-**Motivation**	 
+**动机**	 
 When two classes that do similar things in the same way or similar things in different ways.
-## 63. Extract Interface
+当两个类有过多相似的地方的时候，就需要考虑下是否需要将这个类进行下抽象了
+
+## 63. Extract Interface （提炼接口）
 Several clients use the same subset of a class's interface, or two classes have part of their interfaces in common.  
+若干客户使用类接口中的同一个子类，或者两个类的接口有相同的部分
 _Extract the subset into an interface_  
+_将相同的子集提炼到一个独立接口中_
 ```java
 
 	class Employee {
@@ -2230,13 +2341,15 @@ to
 		getDepartment()
 	}
 ```	
-**Motivation**
+**动机**
 
-* If only a particular subset of a class's responsibilities is used by a group of clients.
+* If only a particular subset of a class's responsibilities is used by a group of clients.、
+* 若一个类的子集明确被一系列的客户使用
 * If a class needs to work with any class that can handle certain requests.
+* 如果一个类需要和多个类处理并能处理确定的请求
 * Whenever a class has distinct roles in different situations.
 
-## 64. Collapse Hierarchy
+## 64. Collapse Hierarchy （折叠继承体系）
 A superclass and subclass are not very different.   
 _Merge them together_
 ```java
