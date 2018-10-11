@@ -2351,7 +2351,9 @@ to
 
 ## 64. Collapse Hierarchy （折叠继承体系）
 A superclass and subclass are not very different.   
+超类和子类无太大区别
 _Merge them together_
+_将它们合为一个_
 ```java
 
 	class Employee{	}
@@ -2362,11 +2364,15 @@ to
 
 	class Employee{	}
 ```		
-**Motivation**	 
+**动机**	 
 When a subclass that isn't adding any value.
-## 65. Form Template Method
+该子类没有带来任何价值
+
+## 65. Form Template Method （塑造模板函数）
 You have two methods in subclasses that perform similar steps in the same order, yet the steps are different.
+有些子类，其中对应的某些函数以相同顺序执行类似的操作，但各个操作的细节上有所不同
 _Get the steps into methods with the same signature, so that the original methods become the same. Then you can pull them up_
+_将这些操作分别放进独立函数中，并保持它们都有相同的签名，于是原函数也就变得相同了。然后将原函数上移到超类_
 ```java
 
 	class Site{}
@@ -2394,15 +2400,20 @@ to
 		getTaxAmount()
 	}
 ```
-**Motivation**
-
+**动机**
 * Use Inheritance with polymorphism  for eliminating duplicate behavior that is slightly different.
+* 继承是避免重复行为的一个强大工具
 * When there are two similar methods in a subclass, bring them together in a superclass.
-* [Template Method](https://www.wikiwand.com/en/Template_method_pattern)[[Gang of Four]](https://www.wikiwand.com/en/Design_Patterns)
+* 当发现两个相似的方法时，将其都放入到父类中
+* [Template Method](https://www.wikiwand.com/en/Template_method_pattern)[[Gang of Four]]
+(https://www.wikiwand.com/en/Design_Patterns)
+* 模板方法
 
-## 66. Replace Inheritance with Delegation
+## 66. Replace Inheritance with Delegation （以委托取代继承）
 A subclass uses only part of a superclasses interface or does not want to inherit data.  
+某个子类只使用了超类接口中的一部分，或是根本不需要继承而来的数据
 _Create a field for the superclass, adjust methods to delegate to the superclass, and remove the subclassing_
+_在子类中创建一个字段用以保存超类，调整子类函数，令它改2而委托超类：然后去除两者之间的继承关系
 ```java
 
 	class Vector{
@@ -2427,15 +2438,18 @@ to
 	}
 
 ```
-**Motivation**
-
+**动机**
 * Using delegation makes  clear that you are making only partial use of the delegated class.
+* 当你使用委托类的时候会对你使用的数据字段更加的清晰
 * You control which aspects of the interface to take and which to ignore.
+* 在你控制之外的方法都会被忽略，你只需要关注于自身
 
 Mechanics
-## 67. Replace Delegation with Inheritance
-You're using delegation and are often writing many simple delegations for the entire interface.   
+## 67. Replace Delegation with Inheritance （以继承取代委托）
+You're using delegation and are often writing many simple delegations for the entire interface. 
+你在两个类之间使用简单的委托关系，并经常为整个接口编写许多很多简单的委托函数  
 _Make the delegating class a subclass of the delegate_
+_让委托类继承委托类_
 ```java
 
 	class Person {
@@ -2458,16 +2472,20 @@ to
 	class Employee extends Person{}
 
 ```
-**Motivation**	 
+**动机**	 
 
 * If you are using all the methods of the delegate.
+* 如果你使用所有的方法在委托类中
 * If you aren't using all the methods of the class to which you are delegating, you shouldn't use it.
-* Beware of is that in which the delegate is shared by more than one object and is mutable. Data sharing is a responsibility that cannot be transferred back to inheritance.
+* 如果你不能使用委托类的所有函数，那么久不应该使用它
+ 
 
-# 12. BIG REFACTORINGS
-## 68. Tease Apart Inheritance
+# 12. BIG REFACTORINGS （大型重构）
+## 68. Tease Apart Inheritance （梳理并分解继承体系）
 You have an inheritance hierarchy that is doing two jobs at once.   
+某个继承体系同时承担两项责任
 _Create two hierarchies and use delegation to invoke one from the other_
+_建立两个继承体系，并通过委托关系让其中一个可以调用另外一个_
 ```java
 
 	class Deal{}
@@ -2490,21 +2508,18 @@ to
 	class SinglePresentationStyle extends PresentationStyle{}
 
 ```
-**Motivation**
-
+**动机**
 * Tangled inheritance leads to code duplication.
+* 过度的继承会导致代码重复
 * If every class at a certain level in the hierarchy has subclasses that begin with the same adjective, you probably are doing two jobs with one hierarchy.
+* 如果继承体系中的某一特定层级上的所有类，其子类名称都已相同的形容词开始，那么这个体系可能肩负着两项不同的责任。
+           |              |
 
-**Mechanics Note**   
-Identify the different jobs being done by the hierarchy. Create a two-dimensional(or x-dimensional) grid and label the axes with the different jobs.
-
-| Deal         | Active Deal | Passive Deal |
-|--------------|-------------|--------------|
-| Tabular Deal |             |              |
-
-## 69. Convert Procedural Design to Objects
+## 69. Convert Procedural Design to Objects （过程化设计转为对象设计）
 You have code written in a procedural style.   
+你手上有些传统过程化风格的代码
 _Turn the data records into objects, break up the behavior, and move the behavior to the objects_
+_将数据记录变成对象，将大块的行为分成小块，并将行为移入相关对象中_
 ```java
 
 	class OrderCalculator{
@@ -2526,12 +2541,15 @@ to
 		getTaxes()
 	}
 ```
-**Motivation**
+**动机**
 Use OOP (at least in JAVA)
+使用面向对象思想进行变成
 
-## 70. Separate Domain from Presentation
+## 70. Separate Domain from Presentation （将领域和表述/显示分离）
 You have GUI classes that contain domain logic.   
+某些GUI类中包含了领域逻辑
 _Separate the domain logic into separate domain classes_
+_将领域逻辑分离出来吗，为他们创建独立的领域类_
 ```java
 
 	class OrderWindow{}
@@ -2543,15 +2561,19 @@ to
 		Order order;
 }
 ```
-**Motivation**
-
+**动机**
 * Separates two complicated parts of the program into pieces that are easier to modify.
+* 分裂两个过于复杂的代码，使他们更易于修改
 * Allows multiple presentations of the same business logic.
+* 允许多层风格编写的程序
 * Its worth is proved
+* 这是值得被使用的
 
-## 71. Extract Hierarchy
+## 71. Extract Hierarchy （提炼继承体系）
 You have a class that is doing too much work, at least in part through many conditional statements.   
+有某个类做了太多的工作其中一部分工作是以大量的条件表达式完成的
 _Create a hierarchy of classes in which each subclass represents a special case_
+_创建一个继承体系，已一个子类来表达某一种特殊的情况_
 ```java
 
 	class BillingScheme{}
@@ -2564,7 +2586,9 @@ to
 	class ResidentialBillingScheme extends BillingScheme{}
 	class DisabilityBillingScheme extends BillingScheme{}
 ```
-**Motivation**   
+**动机**   
 
 * A class as implementing one idea become implementing two or three or ten.
+* 一个类实现一个概念演变成实现多个概念
 * Keep the Single Responsibility Principle.
+* 保持单一责任
