@@ -2,115 +2,13 @@
 
 另外： 建议 评论 还 PR 都是十分欢迎的
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
 # 1. TABLE OF CONTENT 
-# 1. 内容目录
-- [1. TABLE OF CONTENT](#1-table-of-content)
-- [3. BAD SMELLS IN CODE](#3-bad-smells-in-code)
-	- [1. Duplicated code（重复的代码）](#1-duplicated-code-重复的代码)
-	- [2. Long Method（很长的方法）](#2-long-method-很长的方法)
-	- [3. arge Classes（超级大的类）](#3-large-classes-超级大的类)
-	- [4. Long Parameter List(长参数列表)](#4-long-parameter-list-长参数列表)
-	- [5. Divergent Change（发散的改变）](#5-divergent-change-发散的改变)
-	- [6. Shotgun Surgery（散弹枪修改）](#6-shotgun-surgery-散弹枪修改)
-	- [7. Feature Envy（依恋情结）](#7-feature-envy-依恋情结)
-	- [8. Data Clumps（数据泥团）](#8-data-clumps-数据泥团)
-	- [9. Primitive Obsession（基本类型偏执）](#9-primitive-obsession-基本类型偏执)
-	- [10. Switch Statements（Switch 惊悚现身）](#10-switch-statements-Switch 惊悚现身)
-	- [11. Parallel Inheritance Hierarchies（平行继承类）](#11-parallel-inheritance-hierarchies-平行继承类)
-	- [12. Lazy Class（冗余类）](#12-lazy-class-冗余类)
-	- [13. Speculative Generality（夸夸其谈未来性）](#13-speculative-generality-夸夸其谈未来性)
-	- [14. Temporary Field（令人迷惑的临时变量）](#14-temporary-field-令人迷惑的临时变量)
-	- [15. Message Chain（过长的消息链）](#15-message-chain-过长的消息链)
-	- [16. Middle Man（中间人）](#16-middle-man-中间人)
-	- [17. Inappropriate Intimacy（不恰当的亲密关系）](#17-inappropriate-intimacy-不恰当的亲密关系)
-	- [18. Alternative Classes with Different Interfaces（异曲同工的类）](#18-alternative-classes-with-different-interfaces-异曲同工的类)
-	- [19. Incomplete Library Class （不完美的库）](#19-incomplete-library-class-不完美的库)
-	- [20. Data Class（数据类](#20-data-class-数据类)
-	- [21. Refused Bequest（被拒绝的遗赠）](#21-refused-bequest-被拒绝的遗赠)
-	- [22. Comments （过多没用的注释）](#22-comments-过多没用的注释)
-- [6. COMPOSING METHODS](#6-composing-methods)
-	- [1. Extract Method](#1-extract-method)
-	- [2. Inline Method](#2-inline-method)
-	- [3. Inline Temp](#3-inline-temp)
-	- [4. Replace Temp with Query](#4-replace-temp-with-query)
-	- [5. Introduce Explaining Variable](#5-introduce-explaining-variable)
-	- [6. Split Temporary Variable](#6-split-temporary-variable)
-	- [7. Remove Assignments to Parameters](#7-remove-assignments-to-parameters)
-	- [8. Replace Method with Method Object](#8-replace-method-with-method-object)
-	- [9. Substitute Algorithm](#9-substitute-algorithm)
-- [7. Moving features between elements](#7-moving-features-between-elements)
-	- [10. Move method](#10-move-method)
-	- [11. Move field](#11-move-field)
-	- [12. Extract Class](#12-extract-class)
-	- [13. Inline Class](#13-inline-class)
-	- [14. Hide Delegate](#14-hide-delegate)
-	- [15. Remove Middle Man](#15-remove-middle-man)
-	- [16. Introduce Foreign Method](#16-introduce-foreign-method)
-	- [17. Introduce Local Extension](#17-introduce-local-extension)
-- [8. ORGANIZING DATA](#8-organizing-data)
-	- [18. Self Encapsulate Field](#18-self-encapsulate-field)
-	- [19. Replace Data Value with Object](#19-replace-data-value-with-object)
-	- [20. Change Value to Reference](#20-change-value-to-reference)
-	- [21. Change Reference to Value](#21-change-reference-to-value)
-	- [22. Replace Array with Object](#22-replace-array-with-object)
-	- [23. Duplicate Observed Data](#23-duplicate-observed-data)
-	- [24. Change Unidirectional Association to Bidirectional](#24-change-unidirectional-association-to-bidirectional)
-	- [25. Change Bidirectional Association to Unidirectional](#25-change-bidirectional-association-to-unidirectional)
-	- [26. Replace Magic Number with Symbolic Constant](#26-replace-magic-number-with-symbolic-constant)
-	- [27. Encapsulate Field](#27-encapsulate-field) 
-	- [28. Encapsulate Collection](#28-encapsulate-collection)
-	- [29. Remove Record with data class](#29-remove-record-with-data-class)
-	- [30. Replace Type Code with Class](#30-replace-type-code-with-class)
-	- [31. Replace Type Code with Subclasses](#31-replace-type-code-with-subclasses)
-	- [32. Replace Type Code with State/Strategy](#32-replace-type-code-with-statestrategy)
-	- [32. Replace Subclass with Fields](#32-replace-subclass-with-fields)
-- [9. SIMPLIFYING CONDITIONAL EXPRESSIONS](#9-simplifying-conditional-expressions)
-	- [33. Decompose Conditional](#33-decompose-conditional)
-	- [34. Consolidate Conditional Expression](#34-consolidate-conditional-expression)
-	- [35. Consolidate Duplicate Conditional Fragments](#35-consolidate-duplicate-conditional-fragments)
-	- [36. Remove Control Flag](#36-remove-control-flag)
-	- [37. Replace Nested Conditional with Guard Clauses](#37-replace-nested-conditional-with-guard-clauses)
-	- [38. Replace Conditional with Polymorphism](#38-replace-conditional-with-polymorphism)
-	- [39. Introduce Null Object](#39-introduce-null-object)
-	- [40. Introduce Assertion](#40-introduce-assertion)
-- [10. MAKING METHOD CALLS SIMPLER](#10-making-method-calls-simpler)
-	- [41. Rename method](#41-rename-method)
-	- [42. Add Parameter](#42-add-parameter)
-	- [43. Remove Parameter](#43-remove-parameter)
-	- [44. Separate Query from Modifier](#44-separate-query-from-modifier)
-	- [45. Parameterize Method](#45-parameterize-method)
-	- [46. Replace Parameter with Explicit Methods](#46-replace-parameter-with-explicit-methods)
-	- [47. Preserve Whole Object](#47-preserve-whole-object)
-	- [48. Replace Parameter with Method](#48-replace-parameter-with-method)
-	- [49. Introduce Parameter Object](#49-introduce-parameter-object)
-	- [50. Remove Setting Method](#50-remove-setting-method)
-	- [51. Hide Method](#51-hide-method)
-	- [52. Replace Constructor with Factory Method](#52-replace-constructor-with-factory-method)
-	- [53. Encapsulate Downcast](#53-encapsulate-downcast)
-	- [54. Replace Error Code with Exception](#54-replace-error-code-with-exception)
-	- [55. Replace Exception with Test](#55-replace-exception-with-test)
-- [11. DEALING WITH GENERALIZATION](#11-dealing-with-generalization)
-	- [56. Pull up field](#56-pull-up-field)
-	- [57. Pull Up Method](#57-pull-up-method)
-	- [58. Pull Up Constructor Body](#58-pull-up-constructor-body)
-	- [59. Push Down Method](#59-push-down-method)
-	- [60. Push Down Field](#60-push-down-field)
-	- [61. Extract Subclass](#61-extract-subclass)
-	- [62. Extract Superclass](#62-extract-superclass)
-	- [63. Extract Interface](#63-extract-interface)
-	- [64. Collapse Hierarchy](#64-collapse-hierarchy)
-	- [65. Form Template Method](#65-form-template-method)
-	- [66. Replace Inheritance with Delegation](#66-replace-inheritance-with-delegation)
-	- [67. Replace Delegation with Inheritance](#67-replace-delegation-with-inheritance)
-- [12. BIG REFACTORINGS](#12-big-refactorings)
-	- [68. Tease Apart Inheritance](#68-tease-apart-inheritance)
-	- [69. Convert Procedural Design to Objects](#69-convert-procedural-design-to-objects)
-	- [70. Separate Domain from Presentation](#70-separate-domain-from-presentation)
-	- [71. Extract Hierarchy](#71-extract-hierarchy)
 
-<!-- /TOC -->
+
+
+[TOC]
+
+
 
 # 3. BAD SMELLS IN CODE（代码的坏味道）
 ### 1. Duplicated code （重复的代码）
@@ -2106,7 +2004,7 @@ to
 		getName()
 		getDepartment()
 	}
-```	
+```
 **动机**
 
 * 若一个类的子集明确被一系列的客户使用
@@ -2124,7 +2022,7 @@ to
 ```java
 
 	class Employee{	}
-```		
+```
 **动机**	 
 该子类没有带来任何价值
 
@@ -2225,7 +2123,7 @@ to
 
 * 如果你使用所有的方法在委托类中
 * 如果你不能使用委托类的所有函数，那么久不应该使用它
- 
+
 
 # 12. BIG REFACTORINGS （大型重构）
 ## 68. Tease Apart Inheritance （梳理并分解继承体系）
