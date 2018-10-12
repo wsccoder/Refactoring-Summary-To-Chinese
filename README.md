@@ -2221,3 +2221,6 @@ to
 
 * 一个类实现一个概念演变成实现多个概念
 * 保持单一责任
+
+
+[GitHub地址欢迎Star Fork Follower](https://github.com/wsccoder/Refactoring-Summary-To-Chinese/blob/master/README.md) 
